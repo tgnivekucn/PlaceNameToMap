@@ -18,7 +18,8 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        locateAddress()
+//        locateAddress()
+        searchForPlaceOnMap()
     }
 
     func locateAddress() {
@@ -38,6 +39,30 @@ class ViewController: UIViewController {
         }
     }
 
+    func searchForPlaceOnMap() {
+        let request = MKLocalSearch.Request()
+        request.naturalLanguageQuery = "Taipei Main Station"
+        let search = MKLocalSearch(request: request)
+        search.start { [weak self] (response, error) in
+            guard let self = self else {
+                return
+            }
+            guard let response = response else {
+                print("Error: \(error?.localizedDescription ?? "Unknown error").")
+                return
+            }
+
+            for item in response.mapItems {
+                // Process each item, e.g., by adding them to a list or placing pins on a map
+                print("test11 item: \(item)")
+                let coordinate = item.placemark.coordinate
+
+                self.setMapRegion(coordinate)
+                self.addPinToMap(coordinate)
+            }
+        }
+    }
+    
     func setMapRegion(_ coordinate: CLLocationCoordinate2D) {
         let region = MKCoordinateRegion(center: coordinate, latitudinalMeters: 500, longitudinalMeters: 500)
         mapView.setRegion(region, animated: true)
