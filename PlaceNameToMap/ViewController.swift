@@ -59,6 +59,17 @@ class ViewController: UIViewController {
 
                 self.setMapRegion(coordinate)
                 self.addPinToMap(coordinate)
+                
+                // Assume you want to open the first result in Apple Maps
+                let launchOptions1 = [MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDriving]
+                let launchOptions2 = [MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsCameraKey]
+                let launchOptions3 = [MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDefault]
+
+                let launchOptions4 = [MKLaunchOptionsMapTypeKey: MKLaunchOptionsMapSpanKey]
+                let launchOptions5 = [MKLaunchOptionsMapTypeKey: MKLaunchOptionsMapCenterKey]
+                let launchOptions6 = [MKLaunchOptionsMapTypeKey: MKLaunchOptionsCameraKey]
+
+                item.openInMaps(launchOptions: launchOptions4)
             }
         }
     }
